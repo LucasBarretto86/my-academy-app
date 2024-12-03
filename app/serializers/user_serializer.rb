@@ -1,13 +1,7 @@
 # frozen_string_literal: true
 
-class User < ApplicationRecord
-  has_secure_password
-
-  has_many :sessions
-
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-
-  validates_length_of :password, minimum: 8, message: "must be at least 8 characters"
+class UserSerializer < ActiveModel::Serializer
+  attributes :id, :name, :surname, :email, :admin
 end
 
 # == Schema Information
