@@ -1,0 +1,52 @@
+name: Actions
+
+on: push
+
+jobs:
+  Linters:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Markdown
+        uses: avto-dev/markdown-lint@v1
+        with:
+          config: ".github/workflows/lints/.markdownlintrc"
+          args: "*.md docs/*.md docs/**/*.md"
+          ignore: "README.md"
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.0"
+          bundler-cache: true
+
+      - name: Rubocop
+        run: bundle exec rubocop -f github
+
+  CI:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "sqlite3:db/test.sqlite3"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.0"
+          bundler-cache: true
+
+      - name: Brakeman
+        run: bundle exec brakeman -q -w2
+
+      - name: Prepare Database
+        run: |
+          bin/rails db:create
+          bin/rails db:schema:load
+          bin/rails db:migrate RAILS_ENV=test
+
+      - name: Run RSpec
+        run: bundle exec rspec
