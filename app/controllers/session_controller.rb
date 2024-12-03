@@ -4,8 +4,9 @@ class SessionController < ApplicationController
   def create
     if (user = User.authenticate_by(**session_params))
       session = resume_or_created_session_for(user)
-      Current.session = session
       Current.user = user
+      Current.session = session
+      Current.token = session.auth_token
 
       render json: session, status: :created
     else

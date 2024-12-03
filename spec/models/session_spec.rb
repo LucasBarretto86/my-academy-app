@@ -17,8 +17,6 @@ RSpec.describe Session, type: :model do
       expect(session).not_to be_valid
       expect(session.errors[:user]).to include("must exist")
       expect(session.errors[:auth_token]).to include("can't be blank")
-      expect(session.errors[:tos]).to include("can't be blank")
-      expect(session.errors[:expired]).to include("can't be blank")
     end
   end
 end

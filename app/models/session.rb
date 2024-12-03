@@ -3,7 +3,7 @@
 class Session < ApplicationRecord
   belongs_to :user
 
-  validates :auth_token, :expired, :tos, :accessed_at, presence: true
+  validates :auth_token, :accessed_at, presence: true
 end
 
 # == Schema Information
