@@ -28,8 +28,10 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     env:
-      RAILS_ENV: test
-      DATABASE_URL: "sqlite3:db/test.sqlite3"
+      RAILS_ENV: ${{env.test.RAILS_ENV}}
+      DATABASE_URL: ${{env.test.DATABASE_URL}}
+      JWT_SECRET_KEY: ${{env.test.JWT_SECRET_KEY}}
+      ALLOWED_ORIGIN: ${{env.test.ALLOWED_ORIGIN}
     steps:
       - uses: actions/checkout@v4
 
