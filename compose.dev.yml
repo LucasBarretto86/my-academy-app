@@ -1,0 +1,39 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: my-academy-api_c
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/rails
+      - ./db:/rails/db
+
+    environment:
+      RAILS_ENV: "development"
+      DATABASE_URL: sqlite3:///rails/db/development.sqlite3
+      ALLOWED_ORIGIN: http://localhost:3001
+    networks:
+      - app-network
+
+#  frontend:
+#    build:
+#      context: .
+#      dockerfile: ./frontend/Dockerfile.dev
+#    container_name: my-academy_c
+#    ports:
+#      - "3001:3001"
+#    volumes:
+#      - ./frontend:/app
+#    environment:
+#      PORT: 3001
+#    networks:
+#      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db:

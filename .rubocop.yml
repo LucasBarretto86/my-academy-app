@@ -1,0 +1,324 @@
+# Enabling required Rubocop plugins
+require:
+  - rubocop                           # Basic Rubocop functionality
+  - rubocop-performance               # Performance-related cops to optimize code
+  - rubocop-rails                     # Rails-specific cops for Ruby on Rails applications
+  - rubocop-rspec                     # RSpec-specific cops for testing
+  - rubocop-discourse                 # It complains about discourse when I'm using github actions
+
+# Configurations for all cops
+AllCops:
+  DisabledByDefault: true             # Disables all cops by default to only enable explicitly listed ones
+  Exclude:                            # Exclude certain directories and files from RuboCop checks
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'lib/tasks/**/*'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'app/views/**/*.json.jbuilder'  # Excludes Jbuilder files from views
+    - '*'                             # Exclude all other files unless specified
+  SuggestExtensions: false            # Disables suggestions for file extensions
+  TargetRubyVersion: 3.0              # Specifies the Ruby version to be used for linting
+
+# Layout configurations
+Layout/EmptyComment:
+  Enabled: true                       # Checks for empty comments
+
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: true                       # Ensures empty lines around access modifiers (e.g., public, private)
+  EnforcedStyle: only_before          # Eligible values: only_before, both
+
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: true                       # Enforces empty lines around method bodies
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: true                       # Ensures a blank line after a magic comment
+
+Layout/EndAlignment:
+  Enabled: true                       # Aligns 'end' with the variable
+  EnforcedStyleAlignWith: variable    # Eligible values: keyword, variable, start_of_line
+  AutoCorrect: true                   # Automatically corrects alignment issues
+
+Layout/EndOfLine:
+  Enabled: true                       # Consistent line endings
+
+Layout/HashAlignment:
+  Enabled: true                       # Aligns hash key-value pairs
+  AllowMultipleStyles: true           # Allows alignment across multiple styles
+  EnforcedColonStyle: key             # Eligible values: key, separator, table
+
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods  # Ensures consistent indentation within blocks (e.g., extra indent after access modifiers)
+
+Layout/IndentationStyle:
+  Enabled: false                      # Disables hard tabs
+
+Layout/IndentationWidth:
+  Enabled: true                       # Sets indentation width
+
+Layout/LeadingCommentSpace:
+  Enabled: true                       # Ensures space after comment symbols (e.g., `# comment`)
+
+Layout/SpaceAfterColon:
+  Enabled: true                       # Space after colons in hashes: `{ key: value }`
+
+Layout/SpaceAfterComma:
+  Enabled: true                       # Space after commas: `foo(a, b)`
+
+Layout/SpaceAfterNot:
+  Enabled: true                       # Space after 'not': `not a`
+
+Layout/SpaceAfterSemicolon:
+  Enabled: true                       # Space after semicolons: `foo; bar`
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: true                       # Space around `=` in default params: `def foo(bar = 1)`
+
+Layout/SpaceAroundKeyword:
+  Enabled: true                       # Space around keywords: `if condition then ... end`
+
+Layout/SpaceAroundOperators:
+  Enabled: true                       # Space around operators: `a + b`
+
+Layout/SpaceBeforeBlockBraces:
+  Enabled: true                       # Space before `{`: `foo { bar }`
+
+Layout/SpaceBeforeComma:
+  Enabled: true                       # Space before commas: `foo , bar`
+
+Layout/SpaceBeforeFirstArg:
+  Enabled: true                       # Space before the first arg in method: `foo (arg)`
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: true                       # Space inside array brackets: `[ 1, 2 ]`
+
+Layout/SpaceInsideBlockBraces:
+  Enabled: true                       # Space inside `{ ... }`
+  EnforcedStyleForEmptyBraces: space  # Eligible values: no_space, space
+
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true                       # `{ key: value }` not `{key: value}`
+
+Layout/SpaceInsideParens:
+  Enabled: true                       # Space inside parens: `( a )`
+
+Layout/TrailingEmptyLines:
+  Enabled: true                       # Ensures a trailing empty line at EOF
+
+Layout/TrailingWhitespace:
+  Enabled: true                       # Removes trailing spaces
+
+# Lint configurations
+Lint/AmbiguousOperator:
+  Enabled: true                       # Detects ambiguous operators
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: true                       # Detects ambiguous regex literals
+
+Lint/DeprecatedClassMethods:
+  Enabled: true                       # Detects deprecated class methods
+
+Lint/DuplicateCaseCondition:
+  Enabled: true                       # Detects duplicate case conditions
+
+Lint/DuplicateElsifCondition:
+  Enabled: true                       # Detects duplicate elsif conditions
+
+Lint/DuplicateRequire:
+  Enabled: true                       # Detects duplicate require statements
+
+Lint/EmptyBlock:
+  Enabled: true                       # Detects empty blocks
+
+Lint/EmptyFile:
+  Enabled: true                       # Detects empty files
+
+Lint/ErbNewArguments:
+  Enabled: true                       # Detects invalid arguments for `erb`
+
+Lint/LiteralInInterpolation:
+  Enabled: true                       # Detects literals within interpolations
+
+Lint/RedundantStringCoercion:
+  Enabled: true                       # Detects unnecessary `to_s`
+
+Lint/SymbolConversion:
+  Enabled: true                       # Detects unnecessary symbol conversion
+
+Lint/UselessAssignment:
+  Enabled: true                       # Detects assignments that aren't used
+
+Lint/UriEscapeUnescape:
+  Enabled: true                       # Detects `URI.escape/unescape` usage
+
+# Performance configurations
+Performance/BindCall:
+  Enabled: true                       # Detects redundant `bind.call`
+
+Performance/CompareWithBlock:
+  Enabled: true                       # Optimizes block comparisons
+
+Performance/Count:
+  Enabled: true                       # Optimizes count usage
+
+Performance/DeletePrefix:
+  Enabled: true                       # Use `delete_prefix` for efficiency
+
+Performance/DeleteSuffix:
+  Enabled: true                       # Use `delete_suffix` for efficiency
+
+Performance/Detect:
+  Enabled: true                       # Optimizes `detect`
+
+Performance/EndWith:
+  Enabled: true                       # Optimizes `end_with?`
+
+Performance/FlatMap:
+  Enabled: true                       # Optimizes flat_map usage
+
+Performance/MapCompact:
+  Enabled: true                       # Combines `map` and `compact`
+
+Performance/RedundantMerge:
+  Enabled: true                       # Detects redundant `merge`
+
+Performance/RegexpMatch:
+  Enabled: true                       # Optimizes regex matching
+
+Performance/ReverseEach:
+  Enabled: true                       # Optimizes reverse + each
+
+Performance/SelectMap:
+  Enabled: true                       # Combines select and map
+
+Performance/StartWith:
+  Enabled: true                       # Optimizes `start_with?`
+
+Performance/StringReplacement:
+  Enabled: true                       # Optimizes string replacement
+
+Performance/UnfreezeString:
+  Enabled: true                       # Detects unnecessary `freeze` in strings
+
+# Rails-specific configurations
+Rails/ActiveRecordCallbacksOrder:
+  Enabled: true                       # Enforces ActiveRecord callbacks order
+
+Rails/AssertNot:
+  Include:
+    - '**/test/**/*'                  # Asserts 'assert_not' in tests
+
+Rails/Blank:
+  Enabled: true                       # Enforces `.blank?` usage
+
+Rails/FindEach:
+  Enabled: true                       # Enforces `find_each` usage
+
+Rails/IndexBy:
+  Enabled: true                       # Enforces `index_by` usage
+
+Rails/IndexWith:
+  Enabled: true                       # Enforces `index_with` usage
+
+Rails/LinkToBlank:
+  Enabled: true                       # Detects unsafe `link_to` with target="_blank"
+
+Rails/PluralizationGrammar:
+  Enabled: true                       # Ensures correct pluralization
+
+Rails/Present:
+  Enabled: true                       # Enforces `present?` usage
+
+Rails/RefuteMethods:
+  Include:
+    - '**/test/**/*'                  # Refutes methods in tests
+
+Rails/Presence:
+  Enabled: true                       # Enforces `presence` usage
+
+Rails/Pluck:
+  Enabled: true                       # Optimizes `pluck` usage
+
+# Style configurations
+Style/AndOr:
+  Enabled: true                       # Enforces `&&` and `||` over `and` and `or`
+
+Style/BlockDelimiters:
+  Enabled: true                       # Enforces consistent block delimiters
+
+Style/ColonMethodCall:
+  Enabled: true                       # Enforces `Foo.method` over `Foo::method`
+
+Style/DefWithParentheses:
+  Enabled: true                       # Enforces parentheses in method defs
+
+Style/EmptyCaseCondition:
+  Enabled: true                       # Detects empty case conditions
+
+Style/FrozenStringLiteralComment:
+  Enabled: true                       # Enforces frozen_string_literal at top
+  EnforcedStyle: always               # Eligible values: always, when_needed
+  Exclude:
+    - 'db/migrate/**/*.rb'
+
+Style/HashEachMethods:
+  Enabled: true                       # Enforces hash each methods
+
+Style/HashSyntax:
+  Enabled: true                       # Enforces `{ key: value }` syntax
+
+Style/HashTransformKeys:
+  Enabled: true                       # Enforces `transform_keys`
+
+Style/HashTransformValues:
+  Enabled: true                       # Enforces `transform_values`
+
+Style/InverseMethods:
+  Enabled: true                       # Optimizes inverse method calls
+
+Style/MapToHash:
+  Enabled: true                       # Enforces `map_to_hash` usage
+
+Style/MethodDefParentheses:
+  Enabled: true                       # Enforces parentheses in method defs
+
+Style/MultilineWhenThen:
+  Enabled: true                       # Enforces multiline 'when' without 'then'
+
+Style/MutableConstant:
+  Enabled: true                       # Enforces constant immutability
+
+Style/NegatedIf:
+  Enabled: true                       # Enforces `unless` instead of `if !`
+
+Style/Not:
+  Enabled: true                       # Enforces `!` over `not`
+
+Style/ParenthesesAroundCondition:
+  Enabled: true                       # Enforces parens around conditions
+
+Style/Proc:
+  Enabled: true                       # Enforces `proc` over `Proc.new`
+
+Style/RedundantParentheses:
+  Enabled: true                       # Detects redundant parentheses
+
+Style/RedundantReturn:
+  Enabled: true                       # Detects redundant `return`
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes        # Enforces string double quotes
+  SupportedStyles:
+    - double_quotes
+    - single_quotes
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: true                       # Enforces trailing commas in arrays
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: true                       # Enforces trailing commas in hashes
+
+Style/YodaCondition:
+  Enabled: true                       # Prevents Yoda conditions: `5 == x`
