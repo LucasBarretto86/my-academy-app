@@ -29,8 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: test
     env:
-      RAILS_ENV: ${{secrets.RAILS_ENV}}
-      DATABASE_URL: ${{secrets.DATABASE_URL}}
+      RAILS_ENV: test
+      DATABASE_URL: "sqlite3:db/test.sqlite3"
       JWT_SECRET_KEY: ${{secrets.JWT_SECRET_KEY}}
       ALLOWED_ORIGIN: ${{secrets.ALLOWED_ORIGIN}}
     steps:
