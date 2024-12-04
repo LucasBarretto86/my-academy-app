@@ -13,9 +13,9 @@ end
 #  id          :integer          not null, primary key
 #  accessed_at :datetime         not null
 #  auth_token  :string           default(""), not null
-#  expired     :boolean          default(FALSE)
+#  expired     :boolean          default(FALSE), not null
 #  ip_address  :string           default("")
-#  tos         :boolean          default(FALSE)
+#  tos         :boolean          default(FALSE), not null
 #  user_agent  :string           default("")
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

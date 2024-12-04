@@ -11,7 +11,7 @@ services:
       - ./db:/rails/db
 
     env_file:
-      - .env.development.local
+      - .env.development
 
     networks:
       - app-network

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe JWTEncoder do
-  let(:expected_token) { "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wGZQA1-lJKaOG-WFz3zQZdBlJ5I7Z2l9VoNxnmu0aRU" }
+  let(:expected_token) { "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.KjwaUY2Gvz2OQtN38olV8sUhhU4iJuMee9irBhilzic" }
 
   describe "Methods" do
     it ".encode" do

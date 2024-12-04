@@ -15,8 +15,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_104512) do
     t.string "user_agent", default: ""
     t.string "ip_address", default: ""
     t.string "auth_token", default: "", null: false
-    t.boolean "tos", default: false
-    t.boolean "expired", default: false
+    t.boolean "tos", default: false, null: false
+    t.boolean "expired", default: false, null: false
     t.datetime "accessed_at", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", null: false

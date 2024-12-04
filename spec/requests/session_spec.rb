@@ -38,7 +38,7 @@ RSpec.describe SessionController, type: :request do
             "email" => "example@example.com",
             "admin" => false
           },
-          "auth_token" => "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.cRSVkjWcS-38pQG8Ibuwy2ghh9Z6-Ohk5QdH0WkrLhk"
+          "auth_token" => "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.KjwaUY2Gvz2OQtN38olV8sUhhU4iJuMee9irBhilzic"
         })
     end
 
