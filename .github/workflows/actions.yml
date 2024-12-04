@@ -27,11 +27,12 @@ jobs:
 
   CI:
     runs-on: ubuntu-latest
+    environment: test
     env:
-      RAILS_ENV: ${{env.test.RAILS_ENV}}
-      DATABASE_URL: ${{env.test.DATABASE_URL}}
-      JWT_SECRET_KEY: ${{env.test.JWT_SECRET_KEY}}
-      ALLOWED_ORIGIN: ${{env.test.ALLOWED_ORIGIN}
+      RAILS_ENV: ${{secrets.RAILS_ENV}}
+      DATABASE_URL: ${{secrets.DATABASE_URL}}
+      JWT_SECRET_KEY: ${{secrets.JWT_SECRET_KEY}}
+      ALLOWED_ORIGIN: ${{secrets.ALLOWED_ORIGIN}
     steps:
       - uses: actions/checkout@v4
 
