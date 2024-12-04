@@ -32,8 +32,10 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-/frontend
+
 /.idea
 /.idea/*
 /db/development.sqlite3-shm
 /db/development.sqlite3-wal
+/frontend
+/frontend/*
