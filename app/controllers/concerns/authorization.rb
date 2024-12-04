@@ -8,7 +8,7 @@ module Authorization
   end
 
   def authenticated?
-    Current.session.present? && Current.token == request.headers["Authorization"]&.split&.last
+    Current.session.present? && Current.session.auth_token == Current.token
   end
 
   private

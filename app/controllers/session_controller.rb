@@ -6,7 +6,6 @@ class SessionController < ApplicationController
       session = resume_or_created_session_for(user)
       Current.user = user
       Current.session = session
-      Current.token = session.auth_token
 
       render json: session, status: :created
     else

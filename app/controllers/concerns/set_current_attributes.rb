@@ -13,5 +13,6 @@ module SetCurrentAttributes
       Current.user_agent = request.user_agent
       Current.ip_address = request.ip
       Current.request = request
+      Current.token = request.headers["Authorization"]&.split(" ")&.last
     end
 end
