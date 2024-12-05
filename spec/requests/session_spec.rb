@@ -24,28 +24,33 @@ RSpec.describe SessionController, type: :request do
   end
 
   describe "POST /sign-in" do
+    before do
+      allow(Time).to receive(:current).and_return("2024-12-05T18:20:11.224Z")
+    end
+
     it "returns http success" do
       post "/sign-in", params: valid_params
 
       expect(response).to have_http_status(:success)
       expect(response_body)
         .to include({
-          "id" => 2,
-          "user" => {
-            "id" => 1,
-            "name" => "Elizabeth",
-            "surname" => "Olsen",
-            "email" => "example@example.com",
-            "admin" => false
-          },
-          "auth_token" => "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.KjwaUY2Gvz2OQtN38olV8sUhhU4iJuMee9irBhilzic"
+          "token" => "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.KjwaUY2Gvz2OQtN38olV8sUhhU4iJuMee9irBhilzic",
+          "session" => {
+            "accessed_at" => "2024-12-05T18:20:11.224Z",
+            "tos" => false,
+            "user" => {
+              "full_name" => "Elizabeth Olsen",
+              "email" => "example@example.com",
+              "admin" => false
+            }
+          }
         })
     end
 
     it "returns unauthorized" do
       post "/sign-in", params: invalid_params
       expect(response).to have_http_status(:unauthorized)
-      expect(response_body).to eq({ "error" => { "message" => "Unauthorized!" } })
+      expect(response_body).to eq({ "error" => { "message" => "Email and/or Password invalid" } })
     end
   end
 

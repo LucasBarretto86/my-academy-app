@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SessionSerializer < ActiveModel::Serializer
-  attributes :id, :user, :accessed_at, :auth_token, :tos
+  attributes :accessed_at, :tos
 
   belongs_to :user
 end

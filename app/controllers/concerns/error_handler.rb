@@ -14,7 +14,7 @@ module ErrorHandler
         when ActiveRecord::RecordInvalid
           record_invalid_handler(exception)
         else
-          generic_handler(error)
+          generic_handler(exception)
       end
     end
 

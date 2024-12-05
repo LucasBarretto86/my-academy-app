@@ -7,9 +7,9 @@ class SessionController < ApplicationController
       Current.user = user
       Current.session = session
 
-      render json: session, status: :created
+      render json: { token: session.auth_token, session: SessionSerializer.new(session) }, status: :created
     else
-      render json: { error: { message: "Unauthorized!" } }, status: :unauthorized
+      render json: { error: { message: "Email and/or Password invalid" } }, status: :unauthorized
     end
   end
 
