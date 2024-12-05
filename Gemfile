@@ -43,7 +43,6 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
 
   gem "dotenv-rails"
-  gem "rspec"
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem "faker"
@@ -54,7 +53,6 @@ group :development do
   # gem "spring"
 
   gem "brakeman", require: false
-  gem "rubocop", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false

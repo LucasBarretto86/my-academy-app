@@ -223,10 +223,6 @@ GEM
     regexp_parser (2.9.3)
     reline (0.5.12)
       io-console (~> 0.5)
-    rspec (3.13.0)
-      rspec-core (~> 3.13.0)
-      rspec-expectations (~> 3.13.0)
-      rspec-mocks (~> 3.13.0)
     rspec-core (3.13.2)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.3)
@@ -321,9 +317,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rack-cors
   rails (~> 7.1.4)
-  rspec
   rspec-rails
-  rubocop
   rubocop-discourse
   rubocop-performance
   rubocop-rails
