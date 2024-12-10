@@ -32,7 +32,7 @@ module ErrorHandler
       if record.present?
         render json: { errors: exception.record.errors }, status: 400
       else
-        render json: { error: exception.message }, status: 400
+        render json: ({ error: exception.message, origin: exception.backtrace.first.remove(Rails.root.to_s) }), status: 400
       end
     end
 end

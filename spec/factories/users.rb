@@ -9,7 +9,7 @@ FactoryBot.define do
 
     trait :with_session do
       after(:create) do |user|
-        create(:session, user: user, auth_token: JWTEncoder.encode({ user_id: user.id }))
+        create(:session, user: user, token: JWTEncoder.encode({ user_id: user.id }))
       end
     end
   end
