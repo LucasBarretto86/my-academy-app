@@ -2,8 +2,8 @@
 
 module RequestHelpers
   def authorize_user(user_id)
-    jwt_token = JWTEncoder.encode({ user_id: user_id })
-    default_headers = { "Authorization" => "Bearer #{jwt_token}" }
+    token = JWTEncoder.encode({ user_id: user_id })
+    default_headers = { "Authorization" => "Bearer #{token}" }
 
     allow_any_instance_of(ActionDispatch::Request).to receive(:headers).and_return(default_headers)
   end
