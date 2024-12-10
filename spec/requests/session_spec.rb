@@ -8,8 +8,8 @@ RSpec.describe SessionController, type: :request do
   let(:valid_params) do
     {
       session: {
-        email: "example@example.com",
-        password: "password"
+        email: user.email,
+        password: user.password
       }
     }
   end
@@ -17,7 +17,7 @@ RSpec.describe SessionController, type: :request do
   let(:invalid_params) do
     {
       session: {
-        email: "example@example.com",
+        email: "wrong@example.com",
         password: "wrong"
       }
     }
@@ -25,19 +25,17 @@ RSpec.describe SessionController, type: :request do
 
   describe "POST /sign-in" do
     before do
-      allow(Time).to receive(:current).and_return("2024-12-05T18:20:11.224Z")
+      allow(Time).to receive(:current).and_return("2024-12-05T18:20:11.224Z".to_datetime)
     end
 
     it "returns http success" do
       post "/sign-in", params: valid_params
-
       expect(response).to have_http_status(:success)
       expect(response_body)
         .to include({
           "token" => "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.KjwaUY2Gvz2OQtN38olV8sUhhU4iJuMee9irBhilzic",
           "session" => {
-            "accessed_at" => "2024-12-05T18:20:11.224Z",
-            "tos" => false,
+            "logged_at" => "2024-12-05T18:20:11.224Z",
             "user" => {
               "full_name" => "Elizabeth Olsen",
               "email" => "example@example.com",
@@ -63,7 +61,7 @@ RSpec.describe SessionController, type: :request do
       expect { delete "/sign-out" }.to change(Current, :session).to(nil)
 
       expect(response).to have_http_status(:success)
-      expect(response_body).to eq({ "message" => "Session terminated!" })
+      expect(response_body).to eq({ "message" => "Session signed out!" })
     end
   end
 end

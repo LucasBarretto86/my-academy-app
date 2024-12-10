@@ -4,20 +4,25 @@ module Authorization
   extend ActiveSupport::Concern
 
   included do
-    before_action :authorize_request!
+    before_action :authenticate_user!
   end
 
   def authenticated?
-    debugger
-    Current.session.present? && Current.session.auth_token == Current.token
+    Current.session.present? && Current.session.token == Current.token
   end
 
   private
-    def authorize_request!
+    def authenticate_user!
       unless authenticated?
-        pp "WHY ARE YOU ARE NOT AUTHENTICATED?"
-        Current.clear_all
-        render json: { error: { message: "Unauthorized request" } }, status: :unauthorized
+        payload = JWTEncoder.decode(Current.token)
+
+        if (session = Session.includes(:user).find_by(token: token, user_id: payload[:user_id]))
+          Current.session = session
+          Current.user = session.user
+        else
+          Current.clear_all
+          render json: { error: { message: "Unauthorized request" } }, status: :unauthorized
+        end
       end
     end
 end
