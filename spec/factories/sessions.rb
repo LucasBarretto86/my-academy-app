@@ -4,11 +4,12 @@ FactoryBot.define do
   factory :session do
     user_agent { Faker::Internet.user_agent }
     ip_address { Faker::Internet.ip_v4_address }
-    expired { false }
-    tos { true }
+    logged_at { Time.current }
+    expires_at { Time.current + 1.day }
 
-    before(:create) do |session|
-      session.accessed_at = Time.current
+    trait :expired do
+      logged_at { Time.current - 1.day }
+      expires_at { Time.current - 1.hour }
     end
   end
 end
