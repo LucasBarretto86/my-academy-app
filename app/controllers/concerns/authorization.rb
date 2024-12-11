@@ -16,7 +16,7 @@ module Authorization
       unless authenticated?
         payload = JWTEncoder.decode(Current.token)
 
-        if (session = Session.includes(:user).find_by(token: token, user_id: payload[:user_id]))
+        if (session = Session.includes(:user).find_by(token: Current.token, user_id: payload["user_id"]))
           Current.session = session
           Current.user = session.user
         else

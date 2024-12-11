@@ -4,8 +4,8 @@ class API::V1::CoursesController < APIController
   before_action :set_course, only: [:show, :update, :destroy]
 
   def index
-    @courses = Course.not.where("ends_at < ?", Time.current).order(begin_date: :asc)
-    render json: @courses, each_serializer: CoursesSerializer
+    @courses = Course.where.not("ends_at < ?", Time.current).order(begins_at: :asc)
+    render json: @courses, each_serializer: CourseSerializer
   end
 
   def show
@@ -23,7 +23,7 @@ class API::V1::CoursesController < APIController
   end
 
   def destroy
-    @course.destroy
+    @course.destroy!
     render json: { message: "Course removed successfully" }, status: :ok
   end
 

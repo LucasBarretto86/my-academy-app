@@ -17,4 +17,5 @@ end
 
 RSpec.configure do |config|
   config.include RequestHelpers, type: :request
+  config.include RequestHelpers, type: :controller
 end

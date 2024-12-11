@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :course do
-    title { "My first Course" }
-    description { "This is my first course example" }
-    begins_at { Date.current.beginning_of_day }
-    ends_at { Date.current.end_of_week.end_of_day }
+    title { Faker::Educator.course_name }
+    description { Faker::Lorem.paragraph }
+    begins_at { 1.day.from_now.beginning_of_day }
+    ends_at { 1.day.from_now.end_of_week.end_of_day }
   end
 end

@@ -13,6 +13,8 @@ module ErrorHandler
           record_not_found_handler
         when ActiveRecord::RecordInvalid
           record_invalid_handler(exception)
+        when ActiveRecord::RecordNotDestroyed
+          record_not_destroyed_handler(exception)
         else
           generic_handler(exception)
       end
@@ -24,6 +26,10 @@ module ErrorHandler
 
     def record_invalid_handler(exception)
       render json: { errors: exception.record.errors }, status: 422
+    end
+
+    def record_not_destroyed_handler(exception)
+      render json: { error: exception.message }, status: 422
     end
 
     def generic_handler(exception)
