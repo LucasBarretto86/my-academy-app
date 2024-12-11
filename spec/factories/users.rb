@@ -7,6 +7,10 @@ FactoryBot.define do
     email { "elizabeth.olsen@gmail.com" }
     password { "password" }
 
+    trait :admin do
+      admin { true }
+    end
+
     trait :with_session do
       after(:create) do |user|
         create(:session, user: user, token: JWTEncoder.encode({ user_id: user.id }))

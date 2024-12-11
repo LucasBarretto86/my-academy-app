@@ -19,6 +19,18 @@ class Course < ApplicationRecord
     end
   end
 
+  def remove_and_rearrange_lessons!(destroying_lesson)
+    transaction do
+      if destroying_lesson.destroy!
+        lessons.order(:number).each_with_index do |lesson, index|
+          lesson.update_column(:number, index + 1)
+        end
+      else
+        raise ActiveRecord::Rollback, "Failed to remove lesson"
+      end
+    end
+  end
+
   private
     def restricted_attribute_changes
       if started? || begins_at_was < Time.current

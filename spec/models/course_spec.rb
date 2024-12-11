@@ -54,5 +54,33 @@ RSpec.describe Course, type: :model do
         expect { course.destroy! }.to raise_error(ActiveRecord::RecordNotDestroyed)
       end
     end
+
+    context ".remove_and_rearrange_lessons!!" do
+      let(:course) { create(:course, :with_lessons) }
+      let(:destroying_lesson) { course.lessons.second }
+
+      it "removes and rearranges remaining lessons" do
+        expect { course.remove_and_rearrange_lessons!(destroying_lesson) }.to change { course.lessons.count }.by(-1)
+      end
+
+      it "rearranges remaining lessons" do
+        expect(course.lessons.map(&:number)).to eq([1, 2, 3, 4, 5])
+
+        course.remove_and_rearrange_lessons!(destroying_lesson)
+
+        expect(course.lessons.reload.map(&:number)).to eq([1, 2, 3, 4])
+      end
+
+      it "removes unsaved message but doesnt effect" do
+        unsaved_lesson = build(:lesson, course: course)
+        expect { course.remove_and_rearrange_lessons!(unsaved_lesson) }.to change { course.lessons.count }.by(0)
+      end
+
+      it "removes but does not effect existing lessons if lesson is the last one" do
+        last_lesson = course.lessons.last
+
+        expect { course.remove_and_rearrange_lessons!(last_lesson) }.to change { course.lessons.map(&:number).count }.by(0)
+      end
+    end
   end
 end

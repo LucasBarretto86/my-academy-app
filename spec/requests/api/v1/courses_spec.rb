@@ -6,19 +6,17 @@ RSpec.describe API::V1::CoursesController, type: :request do
   let!(:user) { create(:user, :with_session) }
   let!(:course) { create(:course, :with_lessons, title: "My course", description: "My description") }
 
-  before do
-    authorize_user(user.id)
-    create_list(:course, 10)
-  end
+  before { authorize_user(user.id) }
 
   describe "GET #index" do
+    before { create_list(:course, 10) }
+
     it "returns list of courses" do
       get api_v1_courses_path
 
       expect(response).to have_http_status(:success)
       expect(response_body.count).to eq(11)
       expect(response_body[0]["title"]).to eq("My course")
-      expect(response_body[0]["description"]).to eq("My description")
       expect(response_body[0]["description"]).to eq("My description")
       expect(response_body[0]["lessons_count"]).to eq(5)
       expect(response_body[0]).not_to have_key("lessons")
