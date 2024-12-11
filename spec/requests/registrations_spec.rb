@@ -31,11 +31,13 @@ RSpec.describe RegistrationsController, type: :request do
 
       it "returns a created status (201)" do
         post "/sign-up", params: valid_attributes
+
         expect(response).to have_http_status(:created)
       end
 
       it "returns the created user as JSON" do
         post "/sign-up", params: valid_attributes
+
         json_response = JSON.parse(response.body)
         expect(json_response["email"]).to eq("test@example.com")
       end
@@ -48,11 +50,13 @@ RSpec.describe RegistrationsController, type: :request do
 
       it "returns an unprocessable entity status (422)" do
         post "/sign-up", params: invalid_attributes, as: :json
+
         expect(response).to have_http_status(:unprocessable_content)
       end
 
       it "returns error messages in the response" do
         post "/sign-up", params: invalid_attributes, as: :json
+
         json_response = JSON.parse(response.body)
         expect(json_response["errors"]["password_confirmation"]).to include("doesn't match Password")
       end

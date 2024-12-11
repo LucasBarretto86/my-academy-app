@@ -30,6 +30,7 @@ RSpec.describe SessionController, type: :request do
 
     it "returns http success" do
       post "/sign-in", params: valid_params
+
       expect(response).to have_http_status(:success)
       expect(response_body)
         .to include({
@@ -47,6 +48,7 @@ RSpec.describe SessionController, type: :request do
 
     it "returns unauthorized" do
       post "/sign-in", params: invalid_params
+
       expect(response).to have_http_status(:unauthorized)
       expect(response_body).to eq({ "error" => { "message" => "Email and/or Password invalid" } })
     end
@@ -59,7 +61,6 @@ RSpec.describe SessionController, type: :request do
 
     it "returns http success" do
       expect { delete "/sign-out" }.to change(Current, :session).to(nil)
-
       expect(response).to have_http_status(:success)
       expect(response_body).to eq({ "message" => "Session signed out!" })
     end

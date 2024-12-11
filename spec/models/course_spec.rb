@@ -3,6 +3,15 @@
 require "rails_helper"
 
 RSpec.describe Course, type: :model do
+  describe "Associations" do
+    it "has_many lessons" do
+      association = described_class.reflect_on_association(:lessons)
+      expect(association.macro).to eq(:has_many)
+      expect(association.options[:class_name]).to eq("Course::Lesson")
+      expect(association.options[:dependent]).to eq(:destroy)
+    end
+  end
+
   describe "Validations" do
     it "validates mandatory attributes" do
       course = described_class.new
