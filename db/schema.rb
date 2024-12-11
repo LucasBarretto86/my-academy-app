@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_10_030751) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_11_031931) do
+  create_table "course_lessons", force: :cascade do |t|
+    t.integer "number", null: false
+    t.string "title", default: "", null: false
+    t.text "description", default: "", null: false
+    t.integer "course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id", "number"], name: "index_course_lessons_on_course_id_and_number", unique: true
+    t.index ["course_id"], name: "index_course_lessons_on_course_id"
+  end
+
   create_table "courses", force: :cascade do |t|
     t.string "title", default: "", null: false
     t.text "description", default: "", null: false
@@ -45,5 +56,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_10_030751) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "course_lessons", "courses"
   add_foreign_key "sessions", "users"
 end

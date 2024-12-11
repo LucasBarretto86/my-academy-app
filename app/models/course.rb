@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Course < ApplicationRecord
+  has_many :lessons, -> { order(number: :asc) }, class_name: "Course::Lesson", dependent: :destroy
+
   validates :title, :description, :begins_at, presence: true
 
   validate :restricted_attribute_changes, on: [:update]
@@ -14,6 +16,18 @@ class Course < ApplicationRecord
       raise ActiveRecord::RecordNotDestroyed.new("Course can not be destroyed after course begins", self)
     else
       super
+    end
+  end
+
+  def remove_and_rearrange_lessons!(destroying_lesson)
+    transaction do
+      if destroying_lesson.destroy!
+        lessons.order(:number).each_with_index do |lesson, index|
+          lesson.update_column(:number, index + 1)
+        end
+      else
+        raise ActiveRecord::Rollback, "Failed to remove lesson"
+      end
     end
   end
 

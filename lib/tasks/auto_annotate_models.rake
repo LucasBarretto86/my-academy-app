@@ -14,7 +14,7 @@ if Rails.env.development?
       'position_in_test'            => 'false',   # Place annotation at the start of test files
       'position_in_fixture'         => 'false',   # Place annotation at the start of fixture files
       'position_in_factory'         => 'false',   # Place annotation at the start of factory files
-      'position_in_serializer'      => 'bottom',  # Place annotation at the end of serializer files
+      'position_in_serializer'      => 'false',   # Place annotation at the end of serializer files
 
       # Model and Directory Configuration
       'model_dir'                   => 'app/models', # Directory to scan for models
@@ -28,7 +28,7 @@ if Rails.env.development?
       'exclude_tests'               => 'true',       # Exclude test files from annotation
       'exclude_fixtures'            => 'true',       # Exclude fixture files from annotation
       'exclude_factories'           => 'true',       # Exclude factory files from annotation
-      'exclude_serializers'         => 'false',      # Include serializers in annotation
+      'exclude_serializers'         => 'true',       # Include serializers in annotation
       'exclude_scaffolds'           => 'true',       # Exclude scaffold files from annotation
       'exclude_controllers'         => 'true',       # Exclude controller files from annotation
       'exclude_helpers'             => 'true',       # Exclude helper files from annotation

@@ -16,5 +16,10 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
       expect(user.errors[:password]).to include("must be at least 8 characters")
     end
+
+    it "validates that user responds to admin?" do
+      user = build(:user, admin: true)
+      expect(user.admin?).to be_truthy
+    end
   end
 end

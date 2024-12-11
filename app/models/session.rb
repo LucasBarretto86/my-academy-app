@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Session < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, inverse_of: :sessions
 
   validates :token, :logged_at, :expires_at, presence: true
 

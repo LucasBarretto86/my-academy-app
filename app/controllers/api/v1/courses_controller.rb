@@ -9,7 +9,7 @@ class API::V1::CoursesController < APIController
   end
 
   def show
-    render json: @course
+    render json: @course, serializer: CourseSerializer, include_lessons: true
   end
 
   def create

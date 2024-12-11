@@ -4,29 +4,34 @@ require "rails_helper"
 
 RSpec.describe API::V1::CoursesController, type: :request do
   let!(:user) { create(:user, :with_session) }
-  let!(:course) { create(:course, title: "My course", description: "My description") }
+  let!(:course) { create(:course, :with_lessons, title: "My course", description: "My description") }
 
-  before do
-    authorize_user(user.id)
-    create_list(:course, 10)
-  end
+  before { authorize_user(user.id) }
 
   describe "GET #index" do
+    before { create_list(:course, 10) }
+
     it "returns list of courses" do
       get api_v1_courses_path
+
       expect(response).to have_http_status(:success)
       expect(response_body.count).to eq(11)
       expect(response_body[0]["title"]).to eq("My course")
       expect(response_body[0]["description"]).to eq("My description")
+      expect(response_body[0]["lessons_count"]).to eq(5)
+      expect(response_body[0]).not_to have_key("lessons")
     end
   end
 
   describe "GET #show" do
     it "returns http success" do
       get api_v1_course_path(course.id)
+
       expect(response).to have_http_status(:success)
       expect(response_body["title"]).to eq("My course")
       expect(response_body["description"]).to eq("My description")
+      expect(response_body["lessons_count"]).to eq(5)
+      expect(response_body).to have_key("lessons")
     end
   end
 
@@ -61,7 +66,9 @@ RSpec.describe API::V1::CoursesController, type: :request do
     end
 
     it "returns error if params are invalid" do
-      expect { post api_v1_courses_path, params: invalid_params }.to change(Course, :count).by(0)
+      subject = post api_v1_courses_path, params: invalid_params
+
+      expect { subject }.to change(Course, :count).by(0)
       expect(response).to have_http_status(:unprocessable_entity)
       expect(response_body["errors"]).to eq({
         "begins_at" => ["can't be blank"],
