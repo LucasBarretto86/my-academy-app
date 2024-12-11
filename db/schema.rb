@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_03_104512) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_10_030751) do
+  create_table "courses", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.text "description", default: "", null: false
+    t.datetime "begins_at", null: false
+    t.datetime "ends_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string "user_agent", default: ""
     t.string "ip_address", default: ""
