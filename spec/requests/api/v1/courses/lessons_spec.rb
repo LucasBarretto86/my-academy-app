@@ -17,7 +17,7 @@ RSpec.describe API::V1::Courses::LessonsController, type: :request do
 
       expect(response).to have_http_status(:success)
       expect(response_body.count).to eq(11)
-      expect(response_body).to include(lesson.slice(:id, :title, :description, :number, :course_id).as_json)
+      expect(response_body).to include(lesson.slice(:id, :title, :description, :number, :course_id).merge(video_url: nil, thumbnail_url: nil).as_json)
     end
 
     it "returns an empty array if no lessons exist" do

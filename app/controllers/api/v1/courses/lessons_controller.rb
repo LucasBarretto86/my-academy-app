@@ -16,6 +16,11 @@ class API::V1::Courses::LessonsController < APIController
 
   def create
     @lesson = @course.lessons.create!(lesson_params)
+
+    if @lesson.video.attached?
+      VideoProcessingJob.perform_later(@lesson)
+    end
+
     render json: @lesson, status: :created
   end
 
@@ -39,7 +44,7 @@ class API::V1::Courses::LessonsController < APIController
     end
 
     def lesson_params
-      params.require(:lesson).permit(:title, :description, :number)
+      params.require(:lesson).permit(:title, :description, :number, :video, :thumbnail)
     end
 
     def resolve_admin_access!

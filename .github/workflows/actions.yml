@@ -33,8 +33,14 @@ jobs:
       DATABASE_URL: "sqlite3:db/test.sqlite3"
       JWT_SECRET_KEY: ${{secrets.JWT_SECRET_KEY}}
       ALLOWED_ORIGIN: ${{secrets.ALLOWED_ORIGIN}}
+      REDIS_URL: ${{secrets.ALLOWED_ORIGIN}}
+      
     steps:
       - uses: actions/checkout@v4
+
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libvips libvips42
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
