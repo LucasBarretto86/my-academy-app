@@ -4,6 +4,7 @@ require "streamio-ffmpeg"
 
 class VideoProcessingJob < ApplicationJob
   queue_as :default
+  retry_on StandardError, wait: 5.seconds, attempts: 3
 
   def perform(lesson_id)
     lesson = Course::Lesson.find(lesson_id)
@@ -13,7 +14,7 @@ class VideoProcessingJob < ApplicationJob
     video = FFMPEG::Movie.new(video_path)
 
     lesson.update!(duration: video.duration)
-  rescue StandardError => error
-    Rails.logger.error(error.message)
+  rescue error
+    Rails.logger.error("VideoProcessingJob failed: #{error.message}")
   end
 end
