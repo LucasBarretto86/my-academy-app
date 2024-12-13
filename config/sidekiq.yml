@@ -1,0 +1,15 @@
+development:
+  :concurrency: 5
+  :queues:
+    - [critical]
+    - [high]
+    - [default]
+    - [low]
+production:
+  :concurrency: <%= ENV.fetch("SIDEKIQ_CONCURRENCY") { 3 } %>
+  :queues:
+    - [critical, 10]
+    - [high, 5]
+    - [default, 2]
+
+max_retries: <%= ENV.fetch("SIDEKIQ_MAX_RETRIES") { 25 } %>

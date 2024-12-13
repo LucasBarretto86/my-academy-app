@@ -38,6 +38,7 @@ end
 #
 #  id          :integer          not null, primary key
 #  description :text             default(""), not null
+#  duration    :float            default(0.0)
 #  number      :integer          not null
 #  title       :string           default(""), not null
 #  created_at  :datetime         not null

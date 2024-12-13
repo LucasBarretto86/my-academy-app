@@ -13,7 +13,7 @@ ENV RAILS_ENV="development" \
 FROM base as build
 
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libvips pkg-config
+    apt-get install --no-install-recommends -y build-essential git libvips ffmpeg pkg-config
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
@@ -38,5 +38,8 @@ USER rails:rails
 
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
+# LUCAS:I want use Profile to start application
+RUN gem install foreman
+
 EXPOSE 3000
-CMD ["bin/rails", "s", "-b", "0.0.0.0"]
+CMD ["foreman", "start", "-f", "Procfile.dev"]
