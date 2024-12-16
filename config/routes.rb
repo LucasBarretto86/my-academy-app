@@ -17,6 +17,10 @@ Rails.application.routes.draw do
         resources :courses, only: [:index, :show, :create, :update, :destroy] do
           scope module: :courses do
             resources :lessons, only: [:index, :show, :create, :update, :destroy]
+
+            collection do
+              resource :search, only: [:show], as: :course_search
+            end
           end
         end
       end

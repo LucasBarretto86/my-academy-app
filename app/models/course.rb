@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Course < ApplicationRecord
+  searchkick
+
   has_many :lessons, -> { order(number: :asc) }, class_name: "Course::Lesson", dependent: :destroy
 
   validates :title, :description, :begins_at, presence: true
