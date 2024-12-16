@@ -24,6 +24,8 @@ services:
     container_name: my-academy-app_c
     env_file:
       - ./frontend/.env
+    environment:
+      PORT: 3001
     ports:
       - "3001:3001"
     volumes:
@@ -56,7 +58,7 @@ services:
       - app-network
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      test: ["CMD", "curl", "-f", "http://elasticsearch:9200"]
       interval: 30s
       retries: 3
       start_period: 10s

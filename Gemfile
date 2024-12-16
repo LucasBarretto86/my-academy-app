@@ -39,11 +39,15 @@ gem "rack-cors"
 # LUCAS: To be able to work with serializers
 gem "active_model_serializers", "~> 0.10.14"
 
-# LUCAS: I want be able to gather metadata from the videos
+# LUCAS: I want to be able to gather metadata from the videos
 gem "streamio-ffmpeg"
 
 # LUCAS: To handle jobs
 gem "sidekiq"
+
+# LUCAS: ElasticSearch implementation
+gem "elasticsearch", "< 7.14"
+gem "searchkick"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -66,4 +70,3 @@ group :development do
   gem "rubocop-discourse", require: false
   gem "annotate", require: false
 end
-
